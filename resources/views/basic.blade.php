@@ -107,7 +107,7 @@ var serializeForm = function (form) {
 
 var getMe = function()
 {
-    APP.get('/user')
+    APP.get('/api/user')
         .then(response => console.log(response))
         .catch(response => console.log(response))
 }

@@ -12,14 +12,13 @@ if( isServiceWorkerContext() ) {
 
 async function getApiToken()
 {
-    //return "28|ftmd6tznAwoY0NzkC9y81zEgB0IjbI4OqT2VfXlb"
     return await idbKeyval.get("token_{{ $mobile }}")
 }
 
 const swDefault = {
     "MAX_WAIT": 100,
     "skipWaiting" : false, // Install and replace current Service Worker(testing purposes)
-    "verbose" : 0, // Show log messages
+    "verbose" : 0, // Show all log messages
     "cacheOnInstall" : [
         "icon.svg",
     ],
@@ -43,11 +42,19 @@ const swDefault = {
         }
     },
     "cache" : async (cache, url, response) => {
-        if(sw.cacheableStatus.includes(response.status)){
+
+        if(typeof url === "object"){
+            url = url.url.replace(self.registration.scope, "")
+        }
+
+        if(!sw.cacheableStatus.includes(response.status) && !url.startsWith('api')){
+            sw.log(`INFO`, `NOT CACHED : '🔴' HTTP ${response.status} / ${url}`)
+        } else if(url.startsWith('api')) {
+            sw.log(`INFO`, `NOT CACHED : '🔴' API Call / ${url}`)
+        } else {
             await cache.put(url, response);
             sw.log(`INFO`, `CACHED     : '💚' HTTP ${response.status} / ${url}`)
-        } else {
-            sw.log(`INFO`, `NOT CACHED : '🔴' HTTP ${response.status} / ${url}`)
+            sw.log(`INFO`, url)
         }
     },
     /*
@@ -221,6 +228,7 @@ const sw = {...swDefault, ...swCustom }
 
 if( isServiceWorkerContext() ) {
     console.warn("Service Worker Register Context")
+    console.warn(self.registration.scope)
     sw.setup()
 }
 

@@ -45,7 +45,7 @@ class ResourceController extends Controller
 
     public function manifest(Request $request, $mobile)
     {
-        return $this->js("manifest", $mobile);
+        return $this->json("manifest", $mobile);
     }
 
     public function swConfiguration(Request $request, $mobile)
@@ -78,6 +78,13 @@ class ResourceController extends Controller
         return response()
                 ->view("duna::$view", ["mobile" => $mobile])
                 ->header('Content-Type', 'application/javascript');
+    }
+
+    private function json($view, $mobile)
+    {
+        return response()
+                ->view("duna::$view", ["mobile" => $mobile])
+                ->header('Content-Type', 'application/json');
     }
 
 

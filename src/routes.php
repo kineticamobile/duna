@@ -47,4 +47,8 @@ Route::namespace("Kineticamobile\Duna\Controllers")
             return $request->user();
         });
 
+        Route::get('/check', function (Request $request) {
+            return true;
+        });
+
 });
