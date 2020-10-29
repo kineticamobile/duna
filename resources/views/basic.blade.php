@@ -81,7 +81,7 @@ function login(event)
 var loginSuccessfulReponse = function(response)
 {
     setApiToken(response.data)
-    window.location.href = '{{ route('duna.mobile.index', $mobile) }}';
+    window.location.href = '{{ route('duna.mobile.dashboard', $mobile) }}';
 }
 
 function getApiToken()

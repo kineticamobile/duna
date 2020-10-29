@@ -35,17 +35,17 @@ class ResourceController extends Controller
 
     public function configure_sw(Request $request, $mobile)
     {
-        return $this->js("duna::configure_sw", $mobile);
+        return $this->js("configure_sw", $mobile);
     }
 
     public function sql(Request $request, $mobile)
     {
-        return $this->js("duna::sql", $mobile);
+        return $this->js("sql", $mobile);
     }
 
     public function manifest(Request $request, $mobile)
     {
-        return $this->js("duna::manifest", $mobile);
+        return $this->js("manifest", $mobile);
     }
 
     public function swConfiguration(Request $request, $mobile)
@@ -63,10 +63,20 @@ class ResourceController extends Controller
         return $this->js("basic", $mobile);
     }
 
+    public function idbKeyval(Request $request, $mobile)
+    {
+        return $this->js("idb-keyval", $mobile);
+    }
+
+    public function axios(Request $request, $mobile)
+    {
+        return $this->js("axios", $mobile);
+    }
+
     private function js($view, $mobile)
     {
         return response()
-                ->view("duna::configure_sw", ["mobile" => $mobile], 200)
+                ->view("duna::$view", ["mobile" => $mobile])
                 ->header('Content-Type', 'application/javascript');
     }
 

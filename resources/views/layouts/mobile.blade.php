@@ -22,26 +22,12 @@
 </head>
 <body class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0" style="font-family:'Lato',sans-serif;">
     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
-        <h1>Welcome to {{ $mobile }}
         <form id="login" method="POST" action="{{ route("duna.mobile.register", $mobile) }}" onsubmit="login(event)">
-            <div class="mb-4">
-            <label class="block text-grey-darker text-sm font-bold mb-2" for="email">
-                email
-            </label>
-            <input id="email" name="email" type="text" placeholder="email" value="admin@admin.com" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" >
-            </div>
-            <div class="mb-6">
-            <label class="block text-grey-darker text-sm font-bold mb-2" for="password">
-                Password
-            </label>
-            <input id="password" name="password" type="password" placeholder="******************" class="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3" >
-            </div>
             <div class="mb-6">
                 <label class="block text-grey-darker text-sm font-bold mb-2" for="device_name">
                     Device Name
                 </label>
                 <input id="device_name" name="device_name" type="text" placeholder="Device Name" class="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3" id="device_name" type="text" placeholder="Device Name">
-                <p class="text-red text-xs italic">Cuando dejes de usar el dispositivo podrás quitar permisos en la aplicación</p>
             </div>
             <div class="flex items-center justify-between">
             <button  type="submit">

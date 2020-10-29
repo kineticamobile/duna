@@ -4,11 +4,11 @@
     "icons": [
         {
             "src": "icon.svg",
-            "sizes": "512x512",
+            "sizes": "any",
             "type": "image/svg+xml"
         }
     ],
-    "start_url": "index.html",
+    "start_url": "dashboard",
     "display": "fullscreen",
     "background_color": "#FF9E48",
     "theme_color": "#4DBA87"

@@ -7,6 +7,13 @@ function isServiceWorkerContext()
 
 if( isServiceWorkerContext() ) {
     self.importScripts('sw-configuration.js');
+    self.importScripts('idb-keyval.js');
+}
+
+async function getApiToken()
+{
+    //return "28|ftmd6tznAwoY0NzkC9y81zEgB0IjbI4OqT2VfXlb"
+    return await idbKeyval.get("token_{{ $mobile }}")
 }
 
 const swDefault = {
@@ -68,7 +75,7 @@ const swDefault = {
                     do {
                         const sliceDice = leadingSlashRemoved.splice(0, 10);
                         await sw.waitForAll(sliceDice.map(async url => {
-                            await sw.cache(cache, url, await fetch(url))
+                            await sw.cache(cache, url, await fetch(url, { headers: { Authorization: 'Bearer ' + getApiToken() } }))
                         }));
                     } while(leadingSlashRemoved.length > 0);
                     sw.log("INFO", "End Installation.")
@@ -94,11 +101,13 @@ const swDefault = {
             }
         });
     },
-    "defaultFetch" : (event) => {
+    "defaultFetch" : async (event) => {
         const relativeUrl = event.request.url.replace(this.registration.scope, '')
         sw.log("DEBUG", `defaultFetch url`, relativeUrl)
         const cachedResponsePromise = caches.match(event.request);
-        const fetchPromise = fetch(event.request);
+        const token = getApiToken()
+        console.log("token", token)
+        const fetchPromise = fetch(event.request,{ headers: { Authorization: 'Bearer ' + await getApiToken() } });
         const timeoutPromise = sw.timeoutPromise();
         finalResponse = Promise.race([fetchPromise, timeoutPromise]).then(async res => {
             sw.log("DEBUG", `race`, res)
