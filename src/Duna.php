@@ -4,5 +4,8 @@ namespace Kineticamobile\Duna;
 
 class Duna
 {
-    // Build wonderful things
+    public static function folder()
+    {
+        return __DIR__ . "/../";
+    }
 }

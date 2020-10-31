@@ -5,6 +5,7 @@ namespace Kineticamobile\Duna\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Kineticamobile\Atrochar\Models\Menu;
+use Kineticamobile\Duna\Duna;
 
 class ResourceController extends Controller
 {
@@ -26,11 +27,39 @@ class ResourceController extends Controller
         return $request->user()->createToken($request->device_name)->plainTextToken;
     }
 
+    public function bg(Request $request, $mobile)
+    {
+        return $this->filejpg("bg");
+    }
+
+    public function altBg(Request $request, $mobile)
+    {
+        return $this->filejpg("alt-bg");
+    }
+
+    public function profileMobile(Request $request, $mobile)
+    {
+        return $this->filejpg("profile-mobile");
+    }
+
+    public function profileDesktop(Request $request, $mobile)
+    {
+        return $this->filejpg("profile-desktop");
+    }
+
+    public function iconMobile(Request $request, $mobile)
+    {
+        return $this->filepng("icon-mobile");
+    }
+
     public function icon(Request $request, $mobile)
     {
-        return response()
-                ->view("duna::icon", ["mobile" => $mobile])
-                ->header('Content-Type', 'image/svg+xml');
+        return $this->filesvg("icon");
+    }
+
+    public function tailwind(Request $request, $mobile)
+    {
+        return $this->filecss("tailwind");
     }
 
     public function configure_sw(Request $request, $mobile)
@@ -40,7 +69,7 @@ class ResourceController extends Controller
 
     public function sql(Request $request, $mobile)
     {
-        return $this->js("sql", $mobile);
+        return $this->filejs("sql", $mobile);
     }
 
     public function manifest(Request $request, $mobile)
@@ -65,12 +94,12 @@ class ResourceController extends Controller
 
     public function idbKeyval(Request $request, $mobile)
     {
-        return $this->js("idb-keyval", $mobile);
+        return $this->filejs("idb-keyval");
     }
 
     public function axios(Request $request, $mobile)
     {
-        return $this->js("axios", $mobile);
+        return $this->filejs("axios");
     }
 
     private function js($view, $mobile)
@@ -78,6 +107,31 @@ class ResourceController extends Controller
         return response()
                 ->view("duna::$view", ["mobile" => $mobile])
                 ->header('Content-Type', 'application/javascript');
+    }
+
+    private function filejs($filename)
+    {
+        return response()->file(Duna    ::folder() . "assets/$filename.js", ['Content-Type' => 'application/javascript']);
+    }
+
+    private function filesvg($filename)
+    {
+        return response()->file(Duna    ::folder() . "assets/$filename.svg", ['Content-Type' => 'image/svg+xml']);
+    }
+
+    private function filejpg($filename)
+    {
+        return response()->file(Duna    ::folder() . "assets/$filename.jpg", ['Content-Type' => 'image/jpeg']);
+    }
+
+    private function filepng($filename)
+    {
+        return response()->file(Duna    ::folder() . "assets/$filename.png", ['Content-Type' => 'image/png']);
+    }
+
+    private function filecss($filename)
+    {
+        return response()->file(Duna    ::folder() . "assets/$filename.css", ['Content-Type' => 'text/css']);
     }
 
     private function json($view, $mobile)

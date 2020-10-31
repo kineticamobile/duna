@@ -80,6 +80,7 @@ function login(event)
 
 var loginSuccessfulReponse = function(response)
 {
+    console.log(response.data)
     setApiToken(response.data)
     window.location.href = '{{ route('duna.mobile.dashboard', $mobile) }}';
 }
@@ -104,12 +105,20 @@ var serializeForm = function (form) {
     return obj;
 };
 
+var output = function(str)
+{
+    var output = document.getElementById("output");
+    console.log(str)
+    if(output) { output.innerHTML = JSON.stringify(str, null, 4) }
+
+}
 
 var getMe = function()
 {
-    APP.get('/api/user')
-        .then(response => console.log(response))
-        .catch(response => console.log(response))
+    console.log('/me')
+    APP.get('/api/me')
+        .then(response => output(response.data))
+        .catch(output)
 }
 
 async function execAvisosSQL(sql, bindings)

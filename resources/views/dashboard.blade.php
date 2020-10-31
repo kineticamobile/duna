@@ -4,14 +4,16 @@
 <head>
     <meta charset="utf-8">
 
-    <title>{{ Str::title($mobile) }} Service Worker</title>
+    <title>{{ Str::title($mobile) }} App</title>
     <meta name="description" content="Home App">
-    <link rel="icon" type="image/svg+xml" sizes="512x512" href="icon.svg">
-    <link rel="apple-touch-icon" href="icon.svg">
-    <link rel="apple-touch-startup-image" href="icon.svg">
-    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-mobile.png">
+    <link rel="apple-touch-icon" href="icon-mobile.png">
+    <link rel="apple-touch-startup-image" href="icon-mobile.png">
+    <link rel="manifest" crossorigin="use-credentials" href="manifest.json"/>
 
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss/dist/tailwind.min.css">
+
+    <link rel="stylesheet" href="{{ route("duna.mobile.tailwind", $mobile) }}">
+
     <script src="configure_sw.js"></script>
     <script src="{{ route("duna.mobile.idbKeyval", $mobile) }}"></script>
     <script src="{{ route("duna.mobile.axios", $mobile) }}"></script>
@@ -19,7 +21,7 @@
     <script src="{{ route("duna.mobile.basic", $mobile) }}"></script>
 </head>
 
-<body class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover" style="background-image:url('https://source.unsplash.com/a2kD4b0KK4s');">
+<body class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover" style="background-image:url('{{ route('duna.mobile.bg', $mobile) }}');">
 
 
 
@@ -31,19 +33,20 @@
 
           <div class="p-4 md:p-12 text-center lg:text-left">
               <!-- Image for mobile view-->
-              <div class="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center" style="background-image: url('https://source.unsplash.com/cYfnzLLmDlI')"></div>
+              <div class="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center" style="background-image: url('{{ route('duna.mobile.profile-mobile', $mobile) }}')"></div>
 
               <h1 class="text-3xl font-bold pt-8 lg:pt-0">{{ Str::title($mobile) }} App</h1>
               <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-teal-500 opacity-25"></div>
-              <p class="pt-8 text-sm">You can go offline and still see this content.</p>
+              <p class="pt-8 text-sm">You can go offline and still see this content. API calls need connection & would not be cached</p>
+              <br>
+
+                  <textarea class="bg-gray-500" id="output" rows="6" cols="50"></textarea>
 
               <div class="pt-12 pb-8">
-                  <button class="bg-teal-700 hover:bg-teal-900 text-white font-bold py-2 px-4 rounded-full">
-                    Get In Touch
+                  <button onclick="getMe()" class="bg-teal-700 hover:bg-teal-900 text-white font-bold py-2 px-4 rounded-full">
+                    Api /me
                   </button>
-                  <button class="bg-teal-700 hover:bg-teal-900 text-white font-bold py-2 px-4 rounded-full">
-                    Docs
-                  </button>
+
               </div>
 
 
@@ -57,7 +60,7 @@
       <!--Img Col-->
       <div class="w-full lg:w-2/5">
           <!-- Big profile image for side bar (desktop) -->
-          <img src="https://source.unsplash.com/vAu7zSs8Rbg" class="rounded-none lg:rounded-lg shadow-2xl hidden lg:block">
+          <img src="{{ route('duna.mobile.profile-desktop', $mobile) }}" class="rounded-none lg:rounded-lg shadow-2xl hidden lg:block">
           <!-- Image from: http://unsplash.com/photos/MP0IUfwrn0A -->
 
       </div>
@@ -70,14 +73,7 @@
 
   </div>
 
-      <script src="https://unpkg.com/popper.js@1/dist/umd/popper.min.js"></script>
-      <script src="https://unpkg.com/tippy.js@4"></script>
       <script>
-          //Init tooltips
-          tippy('.link',{
-            placement: 'bottom'
-          })
-
           //Toggle mode
           const toggle = document.querySelector('.js-change-theme');
           const body = document.querySelector('body');
@@ -90,7 +86,7 @@
               toggle.innerHTML = "☀️";
               body.classList.remove('text-gray-900');
               body.classList.add('text-gray-100');
-              body.style = "background-image:url('https://source.unsplash.com/PP8Escz15d8');"
+              body.style = "background-image:url('{{ route('duna.mobile.alt-bg', $mobile) }}');"
               profile.classList.remove('bg-white');
               profile.classList.add('bg-gray-900');
             } else
@@ -98,7 +94,7 @@
               toggle.innerHTML = "🌙";
               body.classList.remove('text-gray-100');
               body.classList.add('text-gray-900');
-              body.style = "background-image:url('https://source.unsplash.com/a2kD4b0KK4s');"
+              body.style = "background-image:url('{{ route('duna.mobile.bg', $mobile) }}');"
               profile.classList.remove('bg-gray-900');
               profile.classList.add('bg-white');
             }

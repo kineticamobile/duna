@@ -30,6 +30,12 @@ Route::namespace("Kineticamobile\Duna\Controllers")
         Route::get('basic.js', 'ResourceController@basic')->name("basic");
         Route::get('idb-keyval.js', 'ResourceController@idbKeyval')->name("idbKeyval");
         Route::get('axios.js', 'ResourceController@axios')->name("axios");
+        Route::get('bg.jpg', 'ResourceController@bg')->name("bg");
+        Route::get('alt-bg.jpg', 'ResourceController@altBg')->name("alt-bg");
+        Route::get('profile-mobile.jpg', 'ResourceController@profileMobile')->name("profile-mobile");
+        Route::get('profile-desktop.jpg', 'ResourceController@profileDesktop')->name("profile-desktop");
+        Route::get('icon-mobile.png', 'ResourceController@iconMobile')->name("icon-mobile");
+        Route::get('tailwind.css', 'ResourceController@tailwind')->name("tailwind");
 
         Route::get('/user', function (Request $request) {
             return $request->user();
@@ -44,6 +50,10 @@ Route::namespace("Kineticamobile\Duna\Controllers")
     ->group(function () {
 
         Route::get('/user', function (Request $request) {
+            return $request->user();
+        });
+
+        Route::get('/me', function (Request $request) {
             return $request->user();
         });
 
