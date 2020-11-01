@@ -4,10 +4,21 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "author name",
-            "email": "author email",
-            "homepage": "author homepage"
+            "name": "Raul Tierno",
+            "email": "raultm@gmail.com",
+            "homepage": "https://github.com/raultm"
+        },
+        {
+            "name": "Daniel Macías",
+            "email": "danielmaciasramos@gmail.com",
+            "homepage": "https://github.com/dmaciasr"
+        },
+        {
+            "name": "Emilio Ortiz",
+            "email": "emilio.ortiz@kinetica.mobi",
+            "homepage": "https://github.com/branigan"
         }
+
     ],
     "homepage": "https://github.com/kineticamobile/duna",
     "keywords": ["Laravel", "Duna"],
