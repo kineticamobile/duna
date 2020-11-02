@@ -62,9 +62,9 @@ class ResourceController extends Controller
         return $this->filecss("tailwind");
     }
 
-    public function configure_sw(Request $request, $mobile)
+    public function swRegisterHelpers(Request $request, $mobile)
     {
-        return $this->js("configure_sw", $mobile);
+        return $this->js("sw-register-helpers", $mobile);
     }
 
     public function sql(Request $request, $mobile)

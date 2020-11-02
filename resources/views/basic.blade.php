@@ -32,18 +32,9 @@ var db
 
 async function getDB()
 {
-    if(db){
-        return db
-    }
-    //var dbstr = window.localStorage.getItem("{{ $mobile }}.sqlite");
-    /*
-    idbKeyval.get("{{ $mobile }}.sqlite")
-        .then(val => console.log('It worked!', val))
-        .catch(err => console.log('It failed!', err));
-    */
+    if(db){ return db }
+
     var dbstr = await idbKeyval.get("{{ $mobile }}.sqlite")
-    //console.log(dbstr)
-    //return;
 
     if (dbstr) {
         db = new SQL.Database(toBinArray(dbstr));
@@ -63,24 +54,18 @@ async function getDB()
 
 function login(event)
 {
-    console.log(event)
-    // const formData = new FormData(event);
-    console.log(event.target.action, serializeForm(event.target))
-    console.log(JSON.stringify(serializeForm(event.target)))
     event.preventDefault()
-    //let formData = new FormData(event.target)
+
     axios.post(event.target.action, serializeForm(event.target))
         .then(loginSuccessfulReponse)
         .catch(error => console.log(error))
-    // POST to endpoint with data
-    // Store received token
-    // Redirect User
+
     return false;
 }
 
 var loginSuccessfulReponse = function(response)
 {
-    console.log(response.data)
+    console.log(response)
     setApiToken(response.data)
     window.location.href = '{{ route('duna.mobile.dashboard', $mobile) }}';
 }
@@ -110,7 +95,6 @@ var output = function(str)
     var output = document.getElementById("output");
     console.log(str)
     if(output) { output.innerHTML = JSON.stringify(str, null, 4) }
-
 }
 
 var getMe = function()

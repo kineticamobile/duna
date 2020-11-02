@@ -6,6 +6,7 @@ var swCustom = {
         "alt-bg.jpg",
         "axios.js",
         "bg.jpg",
+        "dashboard",
         "sql.js",
         "icon-mobile.png",
         "idb-keyval.js",

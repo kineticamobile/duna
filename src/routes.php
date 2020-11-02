@@ -22,9 +22,9 @@ Route::namespace("Kineticamobile\Duna\Controllers")
 
         Route::get('dashboard', 'ResourceController@dashboard')->name("dashboard");
         Route::get('icon.svg', 'ResourceController@icon')->name("icon");
-        Route::get('configure_sw.js', 'ResourceController@configure_sw')->name("configure_sw");
         Route::get('sql.js', 'ResourceController@sql' )->name("sql");
         Route::get('manifest.json', 'ResourceController@manifest')->name("manifest");
+        Route::get('sw-register-helpers.js', 'ResourceController@swRegisterHelpers')->name("sw-register-helpers");
         Route::get('sw-configuration.js', 'ResourceController@swConfiguration')->name("sw-configuration");
         Route::get('sw.js', 'ResourceController@sw')->name("sw");
         Route::get('basic.js', 'ResourceController@basic')->name("basic");
