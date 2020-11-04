@@ -1,10 +1,32 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Validation\ValidationException;
+
+$appsDir = base_path('routes/vendors/duna/');
+$directories = glob($appsDir . '*' , GLOB_ONLYDIR);
+
+foreach ($directories as $appFolder){
+    $appName = str_replace($appsDir, "", $appFolder);
+    $webRoutesPath = "$appFolder/web.php";
+    $apiRoutesPath = "$appFolder/api.php";
+
+    if(file_exists($webRoutesPath)) {
+        Route::prefix("duna/$appName")
+            ->as("duna.$appName.")
+            ->middleware(['web','auth:sanctum'])
+            ->namespace('App\Http\Controllers')
+            ->group($webRoutesPath);
+    }
+
+    if(file_exists($apiRoutesPath)) {
+        Route::prefix("duna/$appName/api")
+            ->as("duna.$appName.api.")
+            ->middleware(['auth:sanctum'])
+            ->namespace('App\Http\Controllers')
+            ->group($apiRoutesPath);
+    }
+}
 
 // Admin view to check all service workers installed
 Route::get('/duna/sw/config', function (Request $request) {
@@ -45,7 +67,7 @@ Route::namespace("Kineticamobile\Duna\Controllers")
 
 Route::namespace("Kineticamobile\Duna\Controllers")
     ->prefix('duna/{mobile}/api') //  Url
-    ->as('duna.mobile.') // Name of routes
+    ->as('duna.mobile.api.') // Name of routes
     ->middleware(['auth:sanctum'])
     ->group(function () {
 
