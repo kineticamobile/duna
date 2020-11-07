@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-$appsDir = base_path('routes/vendors/duna/');
+$appsDir = base_path('routes/vendors/kineticamobile/duna/');
 $directories = glob($appsDir . '*' , GLOB_ONLYDIR);
 
 foreach ($directories as $appFolder){

@@ -19,7 +19,7 @@
     <script src="{{ route("duna.mobile.basic", $mobile) }}"></script>
 </head>
 
-<body class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover" style="background-image:url('https://source.unsplash.com/a2kD4b0KK4s');">
+<body class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover" style="background-image:url('{{ route("duna.mobile.bg", $mobile) }}');">
 
 
 
@@ -48,14 +48,14 @@
                 toggle.innerHTML = "☀️";
                 body.classList.remove('text-gray-900');
                 body.classList.add('text-gray-100');
-                body.style = "background-image:url('https://source.unsplash.com/PP8Escz15d8');"
+                body.style = "background-image:url('{{ route("duna.mobile.alt-bg", $mobile) }}');"
                 profile.classList.remove('bg-white');
                 profile.classList.add('bg-gray-900');
             } else {
                 toggle.innerHTML = "🌙";
                 body.classList.remove('text-gray-100');
                 body.classList.add('text-gray-900');
-                body.style = "background-image:url('https://source.unsplash.com/a2kD4b0KK4s');"
+                body.style = "background-image:url('{{ route("duna.mobile.bg", $mobile) }}');"
                 profile.classList.remove('bg-gray-900');
                 profile.classList.add('bg-white');
             }

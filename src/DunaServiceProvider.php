@@ -3,6 +3,7 @@
 namespace Kineticamobile\Duna;
 
 use Illuminate\Support\ServiceProvider;
+use Kineticamobile\Duna\Commands\CreateCommand as CommandsCreateCommand;
 
 class DunaServiceProvider extends ServiceProvider
 {
@@ -77,6 +78,8 @@ class DunaServiceProvider extends ServiceProvider
         ], 'duna.views');*/
 
         // Registering package commands.
-        // $this->commands([]);
+        $this->commands([
+            CommandsCreateCommand::class,
+        ]);
     }
 }
